@@ -11,6 +11,19 @@ def clean_zipcode(zipcode)
   zipcode.to_s.rjust(5, '0').slice(0..4)
 end
 
+def clean_phone_number(phone_number)
+  phone_number.to_str
+  phone_number.tr!('(','')
+  phone_number.tr!(')','')
+  phone_number.tr!('-','')
+  phone_number.tr!('.','')
+  phone_number.tr!(' ','')
+  phone_number = "NONE" if phone_number.length < 10
+  phone_number.gsub!(/1/,'') if phone_number.start_with?('1')
+  phone_number = "NONE" if phone_number.length > 11
+  phone_number
+end
+
 def legislators_names(zipcode)
   legislators = Sunlight::Congress::Legislator.by_zipcode(zipcode)
 end
@@ -29,7 +42,10 @@ contents.each do |row|
   id = row[0]
   name = row[:first_name]
   zipcode = clean_zipcode(row[:zipcode])
+  phone_number = clean_phone_number(row[:homephone])
   legislators = legislators_names(zipcode)
   form_letter = erb_template.result(binding)
   save_thank_you_letter(id,form_letter)
+ 
+  puts "#{name} #{zipcode} #{phone_number}"
 end
