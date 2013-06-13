@@ -1,4 +1,2 @@
 Rudimentary Twitter Client for twitting from the command line.
-Commands Include: ```t for twitting``` eg. t I just twittered this!
-                  ```dm for direct messaging``` eg. dm rkcudjoe I just sent rkcudjoe a dm!
-                  ```spam for dming all followers``` eg. spam spaming all followers!
+Commands Include: ```t for twitting just like this!```; ```dm rkcudjoe directly messages a follower, in this case rkcudjoe!```; ```spam for dming all followers, which is a spam!```.
