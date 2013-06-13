@@ -1,0 +1,1 @@
+Manage event attendees and send them individual messages! Add a .csv file of the event attendees to the lib directory(root did work!). Open ```event_manager.rb``` and look at the comments for instructions.

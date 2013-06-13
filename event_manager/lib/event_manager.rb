@@ -29,6 +29,7 @@ def save_thank_you_letter(id,form_letter)
   File.open(filename, "w") { |file| file.puts form_letter  }
 end
 
+#Begins here! Change event_attendees.csv to manage new attendees.
 contents = CSV.open('event_attendees.csv', headers: true, header_converters: :symbol)
 template_letter = File.read('form_letter.erb')
 erb_template = ERB.new(template_letter)
