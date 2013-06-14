@@ -38,6 +38,19 @@ class MicroBlogger
     followers_list.each { |screen_name| dm(screen_name, message) }
   end
 
+  def friends_last_tweet
+    friends = @client.friends
+    friends.each { |f| f.screen_name.downcase! }
+    friends.sort_by! { |a,b| b <=> a }
+    friends.each do |friend|
+      puts "#{ friend.status.from_user }"
+      puts "#{ friend.status.text }"
+      time_of_tweet = friend.status.created_at
+      puts "#{ time_of_tweet.strftime('%A, %b, %d')}"
+      puts ""
+    end
+  end
+
   def run
     puts "Welcome to JSL Twitter Client"
     command = ''
@@ -58,6 +71,8 @@ class MicroBlogger
     when 'spam'
       message = parts[1..-1].join(' ')
       spam_followers(message)
+    when 'flt'
+      friends_last_tweet
     else
       puts "Sorry I don't understand #{ command }"
       end   
