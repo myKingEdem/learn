@@ -6,4 +6,4 @@ Go through the programs at your own risk!!!
 * Studio Game: Exercises completed during Pragmatic Studio's Online Ruby Course (Completed: 6/7/13).
 * Event Manager: JumpstartLab tutorial for managing event attendants (Completed: 6/12/13).
 * MicroBlogger: A Twitter Client for twitting from the command line. Implements common twitter features (Completed: 6/14/13).
-*Event Reporter: A project that combines techniques and lessons from MicroBlogger and Event Manager Tutorials (Completed: In Progress).
+* Event Reporter: A project that combines techniques and lessons from MicroBlogger and Event Manager Tutorials (Completed: In Progress).
