@@ -2,7 +2,7 @@ require 'rspec/autorun'
 require_relative 'person'
 
 describe Person do
-  before(:each) do
+  before do
     @personal_info = { id: 0, first_name: 'first_name', last_name: 'last_name' }
     @contact_info = { email_address: 'email@example.com', homephone: '2074133142' }
     @address = { street: '2003 Townsend Avenue', city: 'Nashville', state: 'TN', zipcode: '09845' }
@@ -28,8 +28,8 @@ describe Person do
       expect(@attendee.address).to_not eql({})
     end
 
-    it "has a valid rsvp_date day" do
-      expect(@attendee.rsvp_date[:day]).to eql('10/11/2012')
+    it "has a valid rsvp_date" do
+      expect(@attendee.rsvp_date).to_not eql({})
     end
   end
 
@@ -44,6 +44,10 @@ describe Person do
 
     it "returns the right city from the address" do
       expect(@attendee.address[:city]).to eql('Nashville')
+    end
+
+    it "returns the right day from rsvp_date" do
+      expect(@attendee.rsvp_date[:day]).to eql('10/11/12')
     end
   end
 end
