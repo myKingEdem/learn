@@ -7,10 +7,10 @@ loop do
   event_name = gets.chomp
   case event_name
   when /.*/
-   event = Event.new(event_name)
-   puts event.name
+   @event = Event.new(event_name)
+   puts @event.intro_message
+   @event.run
+   puts "Thanks for using Event Reporter."
    break
   end
 end
-
-
