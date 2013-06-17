@@ -2,12 +2,12 @@ require_relative 'event'
 require 'rspec/autorun'
 
 describe "Reporting an", Event do
-  context "a new event" do
-    before do
-      @event_name = 'Bday Party'
-      @event = Event.new(@event_name)
-    end
+  before do
+    @event_name = 'Bday Party'
+    @event = Event.new(@event_name)
+  end
 
+  context "a new event" do
     it "has a name" do
       expect(@event.name).to eql(@event_name)
     end

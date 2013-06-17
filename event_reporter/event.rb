@@ -1,5 +1,7 @@
 require 'csv'
 require_relative 'person'
+require_relative 'queue_processor'
+require_relative 'cleaner'
 
 class Event
   attr_reader :name, :attendees
@@ -10,7 +12,7 @@ class Event
   end
 
   def intro_message
-    puts "Reporting on #{@name}."
+    puts "Reporting on #{ @name }."
     puts "Enter 'quit' to stop using Event Reporter."
   end
 
@@ -27,51 +29,48 @@ class Event
     parts = input.split
     command = parts[0]
     case command
-    when 'quit' then puts 'Quitting........done!'
-    when 'help'
-      puts 'pass the input to the help object'
-      run
-    when 'queue', 'find'
-      puts 'pass input to queue object'
-      run
-    when 'load'
-      file_name = parts[-1]
-      load(file_name)
-      run
+    when 'quit' then quit_reporter
+    when 'help' then provide_help
+    when 'queue', 'find' then process_event_queue(input)
+    when 'load' then load_file(parts)
     else
       puts "Unknown command: #{ command }"
       run
     end
   end
 
+  private
+
+  def load_file(parts)
+    file_name = parts[1]? parts[1] : 's_event_attendees.csv'
+    load(file_name)
+    run
+  end
+
   def load(file_name)
     puts "loading #{ file_name }........done!"
     CSV.foreach(file_name, headers: true, header_converters: :symbol) do |row|
       personal_info = { id: row[0], first_name: row[:first_name], last_name: row[:last_name] }
-      contact_info = { email_address: row[:email_address], homephone: clean_phone_number(row[:homephone]) }
-      address = { street: row[:street], city: row[:city], state: row[:state], zipcode: clean_zipcode(row[:zipcode]) }
-      rsvp_date = clean_rsvp_date(row[:regdate])
+      contact_info = { email_address: row[:email_address], homephone: Cleaner.clean_phone_number(row[:homephone]) }
+      address = { street: row[:street], city: row[:city], state: row[:state], zipcode: Cleaner.clean_zipcode(row[:zipcode]) }
+      rsvp_date = Cleaner.clean_rsvp_date(row[:regdate])
       attendee = Person.new(personal_info, contact_info, address, rsvp_date)
       @attendees << attendee
-      puts "#{ @attendees }"
-      @attendees.clear
     end
   end
 
-  def clean_phone_number(phone_number)
-    phone_number.to_s.gsub!(/[()-.' ',]/,'')
-    phone_number = "NONE" if phone_number.length < 10
-    phone_number.gsub!(/1/,'') if phone_number.start_with?('1')
-    phone_number = "NONE" if phone_number.length > 11
-    phone_number
+  def quit_reporter
+    @attendees.clear
+    puts 'Quitting........done!'
   end
 
-  def clean_zipcode(zipcode)
-    zipcode.to_s.rjust(5, '0').slice(0..4)
+  def provide_help
+    puts 'Pass the input to the help object!'
+    run
   end
 
-  def clean_rsvp_date(rsvp_date)
-    day, time = rsvp_date.to_s.split(' ')
-    rsvp_date = { day: day, time: time }
+  def process_event_queue(input)
+    QueueProcessor.process_queue(@attendees, input)
+    run
   end
 end
