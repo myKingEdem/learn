@@ -1,8 +1,12 @@
-module QueueProcessor
-  def self.process_queue(attendees, input)
+class QueueProcessor
+  def initialize
+    @event_attendees = []
+    @queue = []
+  end
+
+  def process_queue(attendees, input)
     @event_attendees = attendees
     @parts = input.split
-    @queue = []
     command = @parts[0]
     case command
     when 'find' then process_find_command
@@ -12,31 +16,61 @@ module QueueProcessor
     end
   end
 
-  def self.process_queue_command
+  def process_queue_command
     command = @parts[1]
     case command
     when 'count' then count
     when 'clear' then clear
     when 'print' then process_print_command
+    when 'save'  then process_save_command
     else 
       puts "Unknown command: #{ command }"
     end
   end
 
-  def self.process_find_command
-    puts 'proccessing search......'
+  def process_find_command
+    criteria = @parts[1]
+    value = @parts[2]
+    case criteria
+    when 'first_name', 'last_name', 'id' then find_by_personal_info(criteria, value)
+    when 'email_address', 'home_phone' then find_by_contact_info(criteria, value)
+    when 'state', 'city', 'zipcode' then find_by_address(criteria, value) 
+    else 
+      puts "Noone matches your search criteria." 
+    end
   end
 
-  def self.process_print_command
+  def find_by_personal_info(criteria, value)
+    clear
+    persons = @event_attendees.select do |attendee| 
+      attendee.personal_info[criteria.to_sym] == value.to_s
+    end
+
+    persons.each { |person| @queue << person }
+  end
+
+  def find_by_contact_info(criteria, value)
+    puts "find by contact_info"
+  end
+
+  def find_by_address(criteria, value)
+    puts "find by address"
+  end
+
+  def process_print_command
     puts 'processing print....'
-    puts @event_attendees
+    puts @queue
   end
 
-  def self.count
+  def process_save_command
+    puts "saving to...."
+  end
+
+  def count
    puts "#{ @queue.count } attendees."
   end
 
-  def self.clear
+  def clear
     @queue.clear
   end
 end

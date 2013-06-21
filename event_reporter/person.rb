@@ -7,4 +7,12 @@ class Person
     @address = address
     @rsvp_date = rsvp_date
   end
+
+  def to_s
+    puts "Personal Info: #{ @personal_info }"
+    puts "Contact Info: #{ @contact_info }"
+    puts "Address: #{ @address }"
+    puts "RSVP Date: #{ @rsvp_date }"
+    puts ""
+  end
 end
