@@ -33,7 +33,7 @@ class QueueProcessor
     value = @parts[2]
     case criteria
     when 'first_name', 'last_name', 'id' then find_by_personal_info(criteria, value)
-    when 'email_address', 'home_phone' then find_by_contact_info(criteria, value)
+    when 'email_address', 'homephone' then find_by_contact_info(criteria, value)
     when 'state', 'city', 'zipcode' then find_by_address(criteria, value) 
     else 
       puts "Noone matches your search criteria." 
@@ -50,16 +50,25 @@ class QueueProcessor
   end
 
   def find_by_contact_info(criteria, value)
-    puts "find by contact_info"
+    clear
+    persons = @event_attendees.select do |attendee|
+      attendee.contact_info[criteria.to_sym] == value.to_s
+    end
+
+    persons.each { |person| @queue << person }
   end
 
   def find_by_address(criteria, value)
-    puts "find by address"
+    clear
+    persons = @event_attendees.select do |attendee|
+      attendee.address[criteria.to_sym] == value.to_s
+    end
+
+    persons.each { |person| @queue << person }
   end
 
   def process_print_command
-    puts 'processing print....'
-    puts @queue
+    @queue.each { |p| puts p.to_s }
   end
 
   def process_save_command

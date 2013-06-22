@@ -9,10 +9,10 @@ class Person
   end
 
   def to_s
-    puts "Personal Info: #{ @personal_info }"
-    puts "Contact Info: #{ @contact_info }"
-    puts "Address: #{ @address }"
-    puts "RSVP Date: #{ @rsvp_date }"
+    @personal_info.each_pair { |k,v| puts "#{ k }: #{ v }" }
+    @contact_info.each_pair { |k,v| puts "#{ k}: #{ v }" }
+    @address.each_pair { |k,v| puts "#{ k }: #{ v }" }
+    @rsvp_date.each_pair { |k,v| puts "#{ k }: #{ v }" }
     puts ""
   end
 end

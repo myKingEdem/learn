@@ -20,7 +20,7 @@ class Event
   def run
     command = ''
     unless command == 'quit'
-      puts 'Enter Command:'
+      printf 'Enter Command: '
       input  = gets.chomp
       process_input(input)
     end
@@ -31,7 +31,7 @@ class Event
     command = parts[0]
     case command
     when 'quit' then quit_reporter
-    when 'help' then provide_help
+    when 'help' then provide_help(input)
     when 'queue', 'find' then process_event_queue(input)
     when 'load' then load_file(parts)
     else
@@ -68,7 +68,7 @@ class Event
     puts 'Quitting........done!'
   end
 
-  def provide_help
+  def provide_help(input)
     puts 'Pass the input to the help object!'
     run
   end
