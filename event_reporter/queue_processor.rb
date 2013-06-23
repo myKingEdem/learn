@@ -36,7 +36,7 @@ class QueueProcessor
     when 'email_address', 'homephone' then find_by_contact_info(criteria, value)
     when 'state', 'city', 'zipcode' then find_by_address(criteria, value) 
     else 
-      puts "Noone matches your search criteria." 
+      puts "No one matches your search criteria." 
     end
   end
 

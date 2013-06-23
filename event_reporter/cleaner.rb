@@ -3,7 +3,7 @@ module Cleaner
     phone_number.to_s.gsub!(/[()-.' ',]/,'')
     phone_number = "NONE" if phone_number.length < 10
     phone_number.gsub!(/1/,'') if phone_number.start_with?('1')
-    phone_number = "NONE" if phone_number.length > 11
+    phone_number = "NONE" if phone_number.length > 10
     phone_number
   end
 
