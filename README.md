@@ -7,3 +7,4 @@ Go through the programs at your own risk!!!
 * Event Manager: JumpstartLab tutorial for managing event attendants (Completed: 6/12/13).
 * MicroBlogger: A Twitter Client for twitting from the command line. Implements common twitter features (Completed: 6/14/13).
 * Event Reporter: A project that combines techniques and lessons from MicroBlogger and Event Manager Tutorials (Completed: 6/23/13).
+* [SalesEngine](https://github.com/rkcudjoe/sales_engine.git): A reporting tool that manipulates and reports on transactional data (Completed: In Progress).
