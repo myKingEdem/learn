@@ -2,9 +2,10 @@ require 'csv'
 require_relative 'person'
 require_relative 'queue_processor'
 require_relative 'cleaner'
+require_relative 'help_provider'
 
 class Event
-  attr_reader :name, :attendees
+  attr_reader :name, :attendees, :event_queue
   
   def initialize(name)
     @name = name
@@ -14,6 +15,7 @@ class Event
 
   def intro_message
     puts "Reporting on #{ @name }."
+    puts "Enter 'help' for all available commands"
     puts "Enter 'quit' to stop using Event Reporter."
   end
 
@@ -69,7 +71,7 @@ class Event
   end
 
   def provide_help(input)
-    puts 'Pass the input to the help object!'
+    HelpProvider.process_help(input)
     run
   end
 

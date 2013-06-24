@@ -1,4 +1,5 @@
 require_relative 'event'
+require_relative 'queue_processor'
 require 'rspec/autorun'
 
 describe "Reporting an", Event do
@@ -14,6 +15,10 @@ describe "Reporting an", Event do
 
     it "doesn't have a list of attendees" do
       expect(@event.attendees).to eq([])
+    end
+
+    it "has a queue processor" do
+      expect(@event.event_queue.class).to eql(QueueProcessor)
     end
   end
 end
