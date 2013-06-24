@@ -10,7 +10,8 @@ module HelpProvider
 
   def self.list_all_commands
     puts 'Usage: help [command]'
-    commands = ['find', 'queue print', 'queue save', 'queue count', 'queue clear']
+    puts 'All commands:'
+    commands = ['find', 'queue print', 'queue save', 'queue count', 'queue clear', 'load']
     commands.each { |command| puts command }
   end
 
@@ -18,8 +19,13 @@ module HelpProvider
     parts = input.split
     parts.delete_at(0)
     command = parts.join(' ')
+    describe_command(command)
+  end
+
+  def self.describe_command(command)
     case command
     when 'find' then describe_find_command
+    when 'load' then describe_load_command
     when 'queue print' then describe_print_command
     when 'queue save' then describe_save_command
     when 'queue count' then describe_count_command
@@ -48,5 +54,9 @@ module HelpProvider
 
   def self.describe_clear_command
     puts "queue clear     clears the current queue"
+  end
+
+  def self.describe_load_command
+    puts "load       loads a CSV file for reporting. eg. load event_attendees.csv"
   end
 end

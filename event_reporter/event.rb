@@ -15,7 +15,7 @@ class Event
 
   def intro_message
     puts "Reporting on #{ @name }."
-    puts "Enter 'help' for all available commands"
+    puts "Enter 'help' for all available commands."
     puts "Enter 'quit' to stop using Event Reporter."
   end
 
