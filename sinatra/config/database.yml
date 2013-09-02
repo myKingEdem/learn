@@ -1,0 +1,12 @@
+development:
+	adapter: postgresql
+	database:	ar-sinatra
+	username:	['PG_USER']
+	password: ['PG_PASS']
+	host: localhost
+test:
+	adapter: postgresql
+	database:	ar-sinatra
+	username:	['PG_USER']
+	password: ['PG_PASS']
+	host: localhost
